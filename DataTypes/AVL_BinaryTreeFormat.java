@@ -3,7 +3,7 @@ import java.util.Queue;
 import java.util.Scanner;
 
 
-public class BinaryTreeFormat {
+public class AVL_BinaryTreeFormat {
 
 	static class Node {
 		int val;
