@@ -42,7 +42,6 @@ public class AVL_BinaryTreeFormat {
 	    }
 		
 		// A utility function to right rotate subtree rooted with y
-	    // See the diagram given above.
 	    public Node rightRotate(Node y) {
 	        Node x = y.left;
 	        Node T2 = x.right;
@@ -60,7 +59,6 @@ public class AVL_BinaryTreeFormat {
 	    }
 	 
 	    // A utility function to left rotate subtree rooted with x
-	    // See the diagram given above.
 	    public Node leftRotate(Node x) {
 	        Node y = x.right;
 	        Node T2 = y.left;
@@ -101,9 +99,10 @@ public class AVL_BinaryTreeFormat {
 			int left_ht = (roots.left==null)? -1:roots.left.ht;
 			int right_ht = (roots.right==null)? -1:roots.right.ht;
 			
-			roots.ht = 1+Math.max(left_ht, right_ht);
-			//balancing
+			//Balancing
 			roots = Balancing(roots, left_ht, right_ht);
+			
+			roots.ht = 1+max(left_ht, right_ht);
 			return roots;
 		}
 		
@@ -143,7 +142,7 @@ public class AVL_BinaryTreeFormat {
 				
 				//left_ht = (roots.left==null)? -1:roots.left.ht;
 				//right_ht = (roots.right==null)? -1:roots.right.ht;
-				//roots.ht = 1+Math.max(left_ht, right_ht);
+				//roots.ht = 1+max(left_ht, right_ht);
 			}
 
 			return roots;
@@ -186,41 +185,12 @@ public class AVL_BinaryTreeFormat {
 		
 	}
 
+	//Recursive method to get height
 	static int height(Node root) {
 		if (root == null) {
 			return -1;
 		}
 		return 1 + (Math.max(height(root.left), height(root.right)));
-	}
-
-	static Node[] get3Child(Node root){
-		Node[] ans = new Node[3];
-		Queue<Node> q = new LinkedList<Node>();
-		if(root != null) {
-			q.add(root);
-		}
-		int i=0;
-		while(!q.isEmpty()){
-			Node temp = q.poll();
-			if(temp.left != null) {
-				q.add(temp.left);
-			}
-			if(temp.right != null) {
-				q.add(temp.right);
-			}
-			ans[i] = temp;
-			i++;
-			
-			for(int j=i; j>0; j--){
-				if(ans[j].val < ans[j-1].val){
-					Node temp1 = ans[j];
-					ans[j] = ans[j-1];
-					ans[j-1] = temp1;  
-				}
-			}
-		}
-		
-		return ans;
 	}
 
 }

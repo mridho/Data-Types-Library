@@ -3,7 +3,7 @@ import java.util.Queue;
 import java.util.Scanner;
 
 
-public class AVL_BinaryTreeFormat_generic {
+public class AVL_BinaryTreeFormat_generics {
 
 	static class Node<T> {
 		T data;
@@ -100,9 +100,10 @@ public class AVL_BinaryTreeFormat_generic {
 			int left_ht = (roots.left==null)? -1:roots.left.ht;
 			int right_ht = (roots.right==null)? -1:roots.right.ht;
 			
-			roots.ht = 1+max(left_ht, right_ht);
 			//balancing
 			roots = Balancing(roots, left_ht, right_ht);
+			
+			roots.ht = 1+max(left_ht, right_ht);
 			return roots;
 		}
 		
@@ -169,8 +170,7 @@ public class AVL_BinaryTreeFormat_generic {
 
 	}
 
-	/**VVVVVVVVVVVVVVVVVVVVVVVV**/
-	//main to test the AVL tree
+	//Main to test the AVL tree
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int N = sc.nextInt();
@@ -189,7 +189,7 @@ public class AVL_BinaryTreeFormat_generic {
 		
 	}
 
-	//recursive method to get height
+	//Recursive method to get height
 	@SuppressWarnings("rawtypes")
 	static int height(Node root) {
 		if (root == null) {
