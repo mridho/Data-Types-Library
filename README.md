@@ -2,4 +2,6 @@
 
 ## Contents : 
 
-  * AVL binary Tree -> [AVL_BinaryTreeFormat.java](https://github.com/mridho/Data-Types-Library/blob/master/DataTypes/AVL_BinaryTreeFormat.java)
+  * AVL binary Tree 
+     * [AVL_BinaryTreeFormat.java](https://github.com/mridho/Data-Types-Library/blob/master/DataTypes/AVL_BinaryTreeFormat.java) - Node value's data type is integer
+     * [AVL_BinaryTreeFormat_generic.java](https://github.com/mridho/Data-Types-Library/blob/master/DataTypes/AVL_BinaryTreeFormat_generic.java) - Node value's data type is Generic 
