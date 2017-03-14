@@ -44,19 +44,19 @@ public class AVL_BinaryTreeFormat_generics {
 	    
 		// Function to right rotate subtree rooted with main
 	    public Node<T> rightRotate(Node<T> main) {
-	        Node<T> brach = main.left;
-	        Node<T> leaf = brach.right;
+	        Node<T> branch = main.left;
+	        Node<T> leaf = branch.right;
 	 
 	        // Perform rotation
-	        brach.right = main;
+	        branch.right = main;
 	        main.left = leaf;
 	 
 	        // Update heights
 	        main.ht = max(height(main.left), height(main.right)) + 1;
-	        brach.ht = max(height(brach.left), height(brach.right)) + 1;
+	        branch.ht = max(height(branch.left), height(branch.right)) + 1;
 	 
 	        // Return new root
-	        return brach;
+	        return branch;
 	    }
 	 
 	    // Function to left rotate subtree rooted with main
