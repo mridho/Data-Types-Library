@@ -1,5 +1,5 @@
 # **Personal Data Types Library**
-  Collection of data types made for algorithm practice purposes.
+  Collection of data types written in java for algorithm practice purposes.
 
 ## Contents : 
 
