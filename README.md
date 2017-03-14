@@ -1,4 +1,5 @@
 # **Personal Data Types Library**
+  Collection of data types made for algorithm practice purposes.
 
 ## Contents : 
 
