@@ -8,3 +8,6 @@
 
   * Queue
 	 * [QueueFormat.java](https://github.com/mridho/Data-Types-Library/blob/master/DataTypes/QueueFormat.java) - Node value's data type is integer
+
+  * Stack
+	 * [StackFormat.java](https://github.com/mridho/Data-Types-Library/blob/master/DataTypes/StackFormat.java) - Node value's data type is integer
