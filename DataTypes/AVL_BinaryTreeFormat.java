@@ -36,43 +36,43 @@ public class AVL_BinaryTreeFormat {
 	        return N.ht;	
 		}
 		
-	    // A utility function to get maximum of two integers
-	    public int max(int a, int b) {
-	        return (a > b) ? a : b;
+	    // Function to get maximum of two integers
+	    public int max(int int1, int int2) {
+	        return (int1 > int2) ? int1 : int2;
 	    }
 		
-		// A utility function to right rotate subtree rooted with y
-	    public Node rightRotate(Node y) {
-	        Node x = y.left;
-	        Node T2 = x.right;
+		// Function to right rotate subtree rooted with y
+	    public Node rightRotate(Node main) {
+	        Node branch = main.left;
+	        Node leaf = branch.right;
 	 
 	        // Perform rotation
-	        x.right = y;
-	        y.left = T2;
+	        branch.right = main;
+	        main.left = leaf;
 	 
 	        // Update heights
-	        y.ht = max(height(y.left), height(y.right)) + 1;
-	        x.ht = max(height(x.left), height(x.right)) + 1;
+	        main.ht = max(height(main.left), height(main.right)) + 1;
+	        branch.ht = max(height(branch.left), height(branch.right)) + 1;
 	 
 	        // Return new root
-	        return x;
+	        return branch;
 	    }
 	 
-	    // A utility function to left rotate subtree rooted with x
-	    public Node leftRotate(Node x) {
-	        Node y = x.right;
-	        Node T2 = y.left;
+	    // Function to left rotate subtree rooted with x
+	    public Node leftRotate(Node main) {
+	        Node branch = main.right;
+	        Node leaf = branch.left;
 	 
 	        // Perform rotation
-	        y.left = x;
-	        x.right = T2;
+	        branch.left = main;
+	        main.right = leaf;
 	 
 	        //  Update heights
-	        x.ht = max(height(x.left), height(x.right)) + 1;
-	        y.ht = max(height(y.left), height(y.right)) + 1;
+	        main.ht = max(height(main.left), height(main.right)) + 1;
+	        branch.ht = max(height(branch.left), height(branch.right)) + 1;
 	 
 	        // Return new root
-	        return y;
+	        return branch;
 	    }
 		
 		public void insert(int val) {
@@ -139,16 +139,12 @@ public class AVL_BinaryTreeFormat {
 						return leftRotate(roots);
 					}
 				}
-				
-				//left_ht = (roots.left==null)? -1:roots.left.ht;
-				//right_ht = (roots.right==null)? -1:roots.right.ht;
-				//roots.ht = 1+max(left_ht, right_ht);
 			}
 
 			return roots;
 		}
 		
-		public void printAll() {	
+		public void printAll() {	//print all element with Level-Order traversal method	
 			Queue<Node> q = new LinkedList<Node>();
 			if(this.root != null) {
 				q.add(this.root);
@@ -169,6 +165,7 @@ public class AVL_BinaryTreeFormat {
 
 	}
 
+	//Main to test the AVL tree
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int N = sc.nextInt();
@@ -179,7 +176,7 @@ public class AVL_BinaryTreeFormat {
 			tree.insert(i);
 		}
 		sc.close();
-		//System.out.println("height is : "+height(tree.root)+" -> from : "+tree.n);
+		System.out.println("height is : "+height(tree.root)+" -> from : "+tree.n);
 		System.out.println("=====");
 		tree.printAll();
 		
