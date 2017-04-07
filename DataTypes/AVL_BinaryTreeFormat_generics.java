@@ -2,7 +2,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-
 public class AVL_BinaryTreeFormat_generics {
 
 	static class Node<T> {
@@ -76,37 +75,18 @@ public class AVL_BinaryTreeFormat_generics {
 	        return brach;
 	    }
 		
-		public void insert(T val) {
-			n++;
-			this.root = insert(this.root, val);
-		}
-		
-		//insert val to a node
-		public Node<T> insert(Node<T> roots, T value) {
-			if(roots==null){
-				roots = new Node<T>();
-				roots.data = value;
-				return roots;
-			}else{
-				if(value.compareTo(roots.data) < 0){
-					roots.left = insert(roots.left, value);
-				}else if(value.compareTo(roots.data) > 0){
-					roots.right = insert(roots.right, value);
-				}else{
-					//handling for when the number is the same
-					
-				}
-			}
+	    //return the re-balanced Node
+	    public Node<T> getBalanced(Node<T> roots){
 			int left_ht = (roots.left==null)? -1:roots.left.ht;
 			int right_ht = (roots.right==null)? -1:roots.right.ht;
 			
-			//balancing
+			//Balancing
 			roots = Balancing(roots, left_ht, right_ht);
 			
 			roots.ht = 1+max(left_ht, right_ht);
 			return roots;
-		}
-		
+	    }
+	    
 		public Node<T> Balancing(Node<T> roots, int left_ht, int right_ht){
 			
 			if(Math.abs(left_ht - right_ht) > 1){
@@ -144,6 +124,96 @@ public class AVL_BinaryTreeFormat_generics {
 
 			return roots;
 		}
+	    
+	    public void insert(T val) {
+			n++;
+			this.root = insert(this.root, val);
+		}
+		
+		//insert value to a node
+		public Node<T> insert(Node<T> roots, T value) {
+			if(roots==null){
+				roots = new Node<T>(value);
+				return roots;
+			}else{
+				if(value.compareTo(roots.data) < 0){
+					roots.left = insert(roots.left, value);
+				}else if(value.compareTo(roots.data) > 0){
+					roots.right = insert(roots.right, value);
+				}else{
+					//handling for when the number is the same
+					n--;
+				}
+			}
+			return getBalanced(roots);
+		}
+		
+		public Node<T> minValueNode(Node<T> roots){
+	        Node<T> temp = roots;
+	        
+	        // loop down to find the leftmost leaf
+	        while (temp.left != null){
+	        	temp = temp.left;
+	        }
+	        return temp;
+		}
+		
+		//delete value from the tree
+		public void delete(T val){
+			if(n<=0) return;
+			this.root = delete(this.root, val);
+		}
+		
+		//delete value from a node
+		public Node<T> delete(Node<T> roots, T val){
+			
+			//if tree is empty or value not found
+			if (roots == null) return roots;
+			 
+			if (val.compareTo(roots.data) < 0){
+			     roots.left = delete(roots.left, val);
+			}else if (val.compareTo(roots.data) > 0){
+			     roots.right = delete(roots.right, val);
+			}
+			// value is equal with roots's val, node to be deleted found
+			 else{
+				n--;//target node found, decrease n
+			        	
+			    // node with only one child or no child
+			    if ((roots.left == null) || (roots.right == null)){
+			    	Node<T> temp = null;
+			        if (roots.left == null){
+			        	temp = roots.right;
+			        }else{
+			        	temp = roots.left;
+			        }
+			        // No child case
+			        if (temp == null){
+			        	roots = null;
+			        }else{   
+			        	// One child case
+			        	roots = temp; // Copy the contents of the non-empty child
+			        }                 
+			    }else{
+			    	// node with two children
+			        // get successor (smallest in the right subtree)
+			        Node<T> temp = minValueNode(roots.right);
+			 
+			        // Replace the successor's data with this node
+			        roots.data = temp.data;
+			        
+			        // Delete the successor
+			        n++;//add n to counter the recursive n decrement
+			        roots.right = delete(roots.right, temp.data);
+			    }
+			 }
+			 	
+			// If the node is empty then return
+			if (roots == null) return roots;
+				
+			//Return the re-balanced node
+			return getBalanced(roots);
+		}
 		
 		public void printAll() {	//print all element with Level-Order traversal method
 			Queue<Node<T>> q = new LinkedList<Node<T>>();
@@ -169,20 +239,37 @@ public class AVL_BinaryTreeFormat_generics {
 	//Main to test the AVL tree
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
+		System.out.println("Input amount of tree elements to be inputted  : ");
 		int N = sc.nextInt();
 		//String customTypes = sc.next();
 		
-		BinaryTree<Integer> tree = new BinaryTree<Integer>();
+		BinaryTree<String> tree = new BinaryTree<String>();
 
+		String i = "";
+		System.out.println("Input each of the "+N+" tree element in '"+i.getClass().getName()+"' format : ");
 		for (int n = 0; n < N; n++) {
-			Integer i = sc.nextInt();
+			i = sc.next();
 			tree.insert(i);
 		}
-		sc.close();
 		System.out.println("height is : "+height(tree.root)+" -> from : "+tree.n);
 		System.out.println("=====");
 		tree.printAll();
+		System.out.println("=====\n");
 		
+		System.out.println("Input amount of to be deleted tree element : ");
+		int D = sc.nextInt();
+		System.out.println("Input each of the "+D+" to be deleted tree element '"+i.getClass().getName()+"' format : ");
+		for (int d = 0; d < D; d++) {
+			i = sc.next();
+			tree.delete(i);
+			
+			System.out.println("height is : "+height(tree.root)+" -> from total "+tree.n+" tree element");
+			System.out.println("=====");
+			tree.printAll();
+			System.out.println("=====");
+		}
+		
+		sc.close();
 	}
 
 	//Recursive method to get height
